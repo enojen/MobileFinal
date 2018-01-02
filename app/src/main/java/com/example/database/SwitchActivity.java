@@ -13,11 +13,11 @@ public class SwitchActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_switch);
 	}
 
-	public void gotoBasic(View view) {
+	/*public void gotoBasic(View view) {
 		startActivity(new Intent(this, BasicActivity.class));
 		finish();
 	}
-
+*/
 	public void gotoAdvance(View view) {
 		startActivity(new Intent(this, SignInActivity.class));
 		finish();

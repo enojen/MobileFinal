@@ -25,10 +25,7 @@
 		<activity android:name=".NewPostActivity"/>
 		<activity android:name=".PostDetailActivity"/>
 		<activity android:name=".ChatActivity"/>
-		<activity
-			android:name=".BasicActivity"
-			android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
 
-	</application>
+    </application>
 
 </manifest>

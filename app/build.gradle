@@ -35,6 +35,7 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-database:3.0.0'
     implementation "com.google.firebase:firebase-database:$firebaseLibraryVersion"
     implementation "com.google.firebase:firebase-auth:$firebaseLibraryVersion"
+    implementation "com.google.android.gms:play-services-auth:$firebaseLibraryVersion"
 
     implementation 'com.google.firebase:firebase-ads:11.4.2'
 }
