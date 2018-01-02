@@ -9,8 +9,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -52,6 +54,7 @@ public class ChatActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_chat);
 
 		mMessageEditText = findViewById(R.id.messageEditText);
+		this.registerForContextMenu(mMessageEditText);
 		mMessageRecyclerView = findViewById(R.id.messageRecyclerView);
 		mLinearLayoutManager = new LinearLayoutManager(this);
 		mLinearLayoutManager.setStackFromEnd(true);
@@ -160,6 +163,45 @@ public class ChatActivity extends AppCompatActivity {
 				mMessageEditText.setText("");
 			}
 		});
+	}
+
+
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+
+		switch (v.getId()) {
+			case R.id.messageEditText:
+				this.getMenuInflater().inflate(R.menu.messages, menu);
+				break;
+		}
+		super.onCreateContextMenu(menu, v, menuInfo);
+	}
+
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+
+		switch (item.getItemId()) {
+
+			case R.id.m1:
+				mMessageEditText.setText(getStringXML(R.string.message1));
+				break;
+			case R.id.m2:
+				mMessageEditText.setText(getStringXML(R.string.message2));
+				break;
+			case R.id.m3:
+				mMessageEditText.setText(getStringXML(R.string.message3));
+				break;
+			case R.id.m4:
+				mMessageEditText.setText(getStringXML(R.string.message4));
+				break;
+
+		}
+		return super.onContextItemSelected(item);
+	}
+
+	public String getStringXML(int id) {
+		String x = this.getString(id);
+		return x;
 	}
 
 	@Override
