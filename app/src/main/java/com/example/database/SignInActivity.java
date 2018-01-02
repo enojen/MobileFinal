@@ -1,6 +1,7 @@
 package com.example.database;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -29,9 +30,16 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
 		mPasswordField = (EditText) findViewById(R.id.field_password);
 		findViewById(R.id.button_sign_in).setOnClickListener(this);
 		findViewById(R.id.button_sign_up).setOnClickListener(this);
-
-
 		mAuth = FirebaseAuth.getInstance();
+
+        SharedPreferences shf = getSharedPreferences("userInfo", MODE_PRIVATE);
+        String getemail = shf.getString("email", "");
+        String getpass = shf.getString("password", "");
+
+        if((!getemail.isEmpty()) && (!getpass.isEmpty())){
+            mEmailField.setText(getemail);
+            mPasswordField.setText(getpass);
+        }
 	}
 
 	@Override
@@ -78,8 +86,8 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
 	}
 
 	private void signUp() {
-		String email = mEmailField.getText().toString().trim();
-		String password = mPasswordField.getText().toString().trim();
+		final String email = mEmailField.getText().toString().trim();
+		final String password = mPasswordField.getText().toString().trim();
 
 		if (validateForm(email, password)) {
 			showProgressDialog();
@@ -89,6 +97,11 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
 					hideProgressDialog();
 					if (task.isSuccessful()) {
 						onAuthSuccess(task.getResult().getUser());
+						SharedPreferences shf = getSharedPreferences("userInfo", MODE_PRIVATE);
+						SharedPreferences.Editor editor = shf.edit();
+						editor.putString("email", email);
+						editor.putString("password", password);
+						editor.apply();
 					} else {
 						Toast.makeText(SignInActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
 					}
