@@ -1,6 +1,9 @@
 package com.example.database;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,6 +31,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Arrays;
+
 public class ChatActivity extends AppCompatActivity {
 	public static final String MESSAGES_CHILD = "chat";
 
@@ -39,6 +44,7 @@ public class ChatActivity extends AppCompatActivity {
 	private LinearLayoutManager mLinearLayoutManager;
 	private EditText mMessageEditText;
 	private String mEmail = "Anonymous";
+	private FloatingActionButton mHelpMessage;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +55,27 @@ public class ChatActivity extends AppCompatActivity {
 		mMessageRecyclerView = findViewById(R.id.messageRecyclerView);
 		mLinearLayoutManager = new LinearLayoutManager(this);
 		mLinearLayoutManager.setStackFromEnd(true);
+		final String[] messages = {"Selam", "Naber", "İyi"};
+
+		mHelpMessage = (FloatingActionButton) findViewById(R.id.help_message);
+		mHelpMessage.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+
+				AlertDialog.Builder dialog = new AlertDialog.Builder(ChatActivity.this);
+				dialog.setItems(messages, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int i) {
+						String string = Arrays.asList(messages).get(i);
+						mMessageEditText.setText(string);
+					}
+				});
+				AlertDialog dialog2 = dialog.create();
+				dialog2.show();
+
+
+			}
+		});
 
 		// Initialize Firebase Auth
 		FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
