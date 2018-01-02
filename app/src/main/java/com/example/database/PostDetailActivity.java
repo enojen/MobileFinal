@@ -1,6 +1,7 @@
 package com.example.database;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +37,7 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
 	private TextView mAuthorView, mTitleView, mBodyView;
 	private EditText mCommentField;
 	private RecyclerView mCommentsRecycler;
+	private ImageView mShare;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,15 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
 		mTitleView = (TextView) findViewById(R.id.post_title);
 		mBodyView = (TextView) findViewById(R.id.post_body);
 		mCommentField = (EditText) findViewById(R.id.field_comment_text);
+		mShare = (ImageView) findViewById(R.id.share);
+		mShare.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent shareint = new Intent(Intent.ACTION_SEND);
+				shareint.setType("text/plain");
+				startActivity(Intent.createChooser(shareint, "Share this post with your friends!"));
+			}
+		});
 
 		mCommentsRecycler = (RecyclerView) findViewById(R.id.recycler_comments);
 		mCommentsRecycler.setLayoutManager(new LinearLayoutManager(this));
