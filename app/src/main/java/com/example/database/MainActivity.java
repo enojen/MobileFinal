@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.database.fragment.MyPostsFragment;
-import com.example.database.fragment.MyTopPostsFragment;
 import com.example.database.fragment.RecentPostsFragment;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -30,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
 			private final Fragment[] mFragments = new Fragment[] {
 					new RecentPostsFragment(),
 					new MyPostsFragment(),
-					new MyTopPostsFragment(),
 			};
 
 			@Override
